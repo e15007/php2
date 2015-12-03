@@ -1,3 +1,4 @@
+<?php 
 print <<<HTMLBLOCK
 <html>
 <head><title>Menu</title></head>
@@ -11,3 +12,9 @@ print <<<HTMLBLOCK
 </body>
 </html>
 HTMLBLOCK;
+
+print 'bread' . 'fruit' . "<br>\n";
+print "It's a beautiful day" . 'in the neighborhood.' . "<br>\n";
+print 'The price is:' . '$3.95' . "<br>\n";
+
+?>
