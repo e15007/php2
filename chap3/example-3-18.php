@@ -1,4 +1,6 @@
-print '<select name="doughnuts">';for ($min = 1, $max = 10; $min < 50; $min += 10, $max += 10) {
+<?php 
+
+print '<select name="doughnuts">';for ($min = 1, $max = 3; $min < 16; $min += 3, $max += 3) {
     print "<option>$min - $max</option>\n";
 }
 print '</select>';
