@@ -1,3 +1,4 @@
+<?php 
 //print a text box
 function input_text($element_name, $values) {
     print '<input type="text" name="' . $element_name .'" value="';
@@ -5,7 +6,7 @@ function input_text($element_name, $values) {
 }
 
 //print a submit button
-function input_submit($element_name, $label) {
+function input_submit($element_name,$label) {
     print '<input type="submit" name="' . $element_name .'" value="';
     print htmlentities($label) .'"/>';
 }
@@ -47,7 +48,7 @@ function input_select($element_name, $selected, $options, $multiple = false) {
     // print out the <option> tags
     foreach ($options as $option => $label) {
         print '<option value="' . htmlentities($option) . '"';
-        if ($selected_options[$option]) {
+        if (array_key_exists($option,$selected_options)) {
             print ' selected="selected"';
         }
         print '>' . htmlentities($label) . '</option>';
