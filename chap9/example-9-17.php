@@ -1,6 +1,6 @@
 <?php
 // Use the form helper functions defined in Chapter 6
-require 'formhelpers.php';
+require '../chap6/formhelpers.php';
 
 $months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 
                 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
@@ -12,7 +12,7 @@ for ($year = date('Y') - 1, $max_year = date('Y') + 5; $year < $max_year; $year+
     $years[$year] = $year;
 }
 
-if ($_POST['_submit_check']) {
+if (isset($_POST['_submit_check'])) {
     if ($errors = validate_form()) {
         show_form($errors);
     } else {
@@ -45,7 +45,7 @@ function show_form($errors = '') {
     global $months, $years, $this_year;
 
     // If the form is submitted, get defaults from submitted variables
-    if ($_POST['_submit_check']) {
+    if (isset($_POST['_submit_check'])) {
         $defaults = $_POST;
     } else {
         // Otherwise, set our own defaults: the current month and year
@@ -99,12 +99,21 @@ _HTML_;
     // need to put blank table cells under "Su" and "Mo" in the first
     // row so that the day 1 table cell goes under "Tu"
     if ($day_offset > 0) {
+        print '<br>';
         for ($i = 0; $i < $day_offset; $i++) { print '<td>&nbsp;</td>'; }
     }
 
     // Print a table cell for each day of the month
     for ($day = 1; $day <= $days_in_month; $day++ ) {
+        if($day_offset == 0 ) {  
+        print '<td align="center" style="color:red" >' . $day . '</td>';
+}elseif($day_offset == 6){
+        print '<td align="center" style="color:blue">' . $day . '</td>';
+    
+}else{
+
         print '<td align="center">' . $day . '</td>';
+}
         $day_offset++;
         // If this cell was the seventh in the row, then
         // end the table row and reset $day_offset

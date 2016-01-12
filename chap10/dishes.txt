@@ -1,0 +1,4 @@
+The price of ポテトサラダ is 2.50 
+The price of カツカレー is 5.00 
+The price of エビチリ is 10.00 
+The price of 豆腐 is 5.00 

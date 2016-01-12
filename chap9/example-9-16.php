@@ -128,7 +128,7 @@ function process_form() {
         $_POST['hour'] += 12;
     }
 
-    // Make an epoch timestamp for the user-entered date
+    // ユーザーが指定した
     $timestamp = mktime($_POST['hour'], $_POST['minute'], 0,
                         $_POST['month'], $_POST['day'], $_POST['year']);
 
@@ -138,29 +138,30 @@ function process_form() {
     // date for $timestamp's month
     // Otherwise, use the NYPHP meeting date for the next month.
 
-    // Midnight on the user-entered date
+    // ユーザーが入力した日付の0時0分0秒のえっぽっくタイムスタンプ
     $midnight  = mktime(0,0,0, $_POST['month'], $_POST['day'], $_POST['year']);
-    // Midnight on the first of the user-entered month
+    // ユーザーが入力した年月の1日のえっポックタイムスタンプ
     $first_of_the_month = mktime(0,0,0,$_POST['month'],1,$_POST['year']);
-    // Midnight on the fourth thursday of the user-entered month 
+    // ユーザが入力した年月のミーティングの日のえっポックタイムスタンプ
     $month_nyphp = strtotime('fourth thursday',$first_of_the_month);
     
     if ($midnight < $month_nyphp) {
-        // The user-entered date is before the meeting day
+        // ユーザが入力した日時よりあとに今月のミーティングある
         print "NYPHP Meeting this month: ";
         print date('l, F j, Y', $month_nyphp);
     } elseif ($midnight == $month_nyphp) {
-        // The user-entered date is a meeting day
+        // ユーザが入力した日がミーティングの日
         print "NYPHP Meeting today. ";
+        //開始時間まで含めたミーティングのえっぽっくスタンプ
         $meeting_start = strtotime('6:30pm', $month_nyphp);
-        // If it's afer 6:30pm, say that the meeting has already started
+        // ユーザが入力した日時はミーティングの日で,ミーティングはすでに始まっている
         if ($timestamp > $meeting_start) {
             print "It started at 6:30 but you entered ";
             print date('g:i a', $timestamp);
         }
     } else {
-        // The user-entered date is after a meeting day, so find the
-        // meeting day for next month
+        // ユーザが入力した日時より前に今月のミーティングが開催された
+        //場合は来月のミーティングを表示する
         $first_of_next_month = mktime(0,0,0,$_POST['month'] + 1,1,$_POST['year']);
         $next_month_nyphp = strtotime('fourth thursday',$first_of_next_month);
         print "NYPHP Meeting next month: ";
